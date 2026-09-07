@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="hi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Birthday Surprise Builder</title>
+<style>
+:root{--pink:#e83d78;--dark:#291122}*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#fff8f0,#fde7ef);color:#432133}.top{padding:13px 16px;background:var(--dark);color:#fff;display:flex;justify-content:space-between}.mode{background:#ffd36b;color:#573b12;padding:6px 11px;border-radius:20px;font-size:12px;font-weight:bold}.wrap{max-width:850px;margin:auto;padding:18px}.card{background:#fff;border-radius:24px;padding:22px;box-shadow:0 15px 45px #70213a22}.steps{display:flex;gap:7px;overflow:auto;margin-bottom:18px}.dot{min-width:38px;height:38px;border:0;border-radius:50%;font-weight:bold;background:#f1dce4}.dot.active{background:var(--pink);color:#fff}.step{display:none}.step.active{display:block}h2{text-align:center}.sub{text-align:center;color:#806573}label{display:block;font-weight:bold;margin:13px 0 6px}input,textarea{width:100%;padding:12px;border:1px solid #e7c7d2;border-radius:12px;font-size:16px}textarea{min-height:110px}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.photo{aspect-ratio:1;border:2px dashed #e4b7c6;border-radius:15px;display:grid;place-items:center;position:relative;overflow:hidden}.photo input{position:absolute;inset:0;opacity:0}.photo img{width:100%;height:100%;object-fit:cover}.msg{display:grid;grid-template-columns:1fr 40px;gap:7px;margin:8px 0}.del{border:0;border-radius:10px;background:#f5d6e0;color:#9e2050}.btns{display:flex;justify-content:space-between;gap:8px;margin-top:22px}.btn{border:0;border-radius:14px;padding:13px 18px;background:linear-gradient(135deg,#fa7199,var(--pink));color:#fff;font-weight:bold;cursor:pointer}.btn.alt{background:#fff;color:#884059;border:1px solid #e9cbd5}.hide{display:none!important}.note{background:#fff7e7;padding:11px;border-radius:12px;margin-top:12px;font-size:13px;color:#745d38;white-space:pre-wrap}.preview{min-height:calc(100vh - 50px);display:grid;place-items:center;padding:14px}.scene{width:min(680px,100%);min-height:650px;background:linear-gradient(#2c0c25,#160611);color:#fff;border-radius:30px;padding:25px;text-align:center;position:relative;overflow:hidden}.scene.light{background:linear-gradient(#fffaf4,#f8dce5);color:#4a2636}.prog{display:flex;justify-content:center;gap:6px}.prog i{width:23px;height:5px;border-radius:8px;background:#ffffff33}.prog i.on{background:#ff5d91}.cake{font-size:130px;cursor:pointer;animation:f 2.5s infinite}.big{font-size:48px;line-height:1.05}.bottom{position:absolute;left:20px;right:20px;bottom:20px}.bowstage{height:400px;position:relative}.heart{position:absolute;left:50%;top:45px;transform:translateX(-50%);font-size:120px}.bow{position:absolute;left:8%;bottom:40px;font-size:135px;transform:rotate(-15deg)}.arrow{position:absolute;left:24%;bottom:135px;font-size:65px;transition:1s}.shot .arrow{left:50%;bottom:255px}.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:25px}.gallery img,.empty{width:100%;aspect-ratio:1;object-fit:cover;border-radius:17px}.empty{background:#fff8;display:grid;place-items:center}.balloons{height:400px;position:relative}.balloon{position:absolute;width:90px;height:112px;border-radius:50%;background:#f45c91;color:#fff;display:grid;place-items:center;padding:8px;cursor:pointer}.b1{left:5%;top:20px}.b2{right:5%;top:55px}.b3{left:30%;top:185px}.b4{right:27%;top:205px}.letter{background:#fff8ee;color:#542c3d;padding:14px;border-radius:15px;margin:10px}.catbox{height:330px;position:relative;width:260px;margin:auto}.cat{position:absolute;left:55px;top:90px;width:150px;height:145px;border-radius:48%;background:#e7cdb6}.ear{position:absolute;top:-40px;width:70px;height:80px;background:#d0aa8b;clip-path:polygon(50% 0,100% 100%,0 100%)}.l{left:-5px}.r{right:-5px}.eye{position:absolute;top:57px;width:30px;height:38px;background:#292020;border-radius:50%}.el{left:34px}.er{right:34px}.cap{position:absolute;z-index:2;left:72px;top:60px;width:118px;height:52px;background:#d91d4d;border-radius:70px 70px 20px 20px;color:#fff;line-height:52px;font-size:26px;font-weight:bold}.flowers{position:absolute;bottom:18px;left:0;font-size:44px}@keyframes f{50%{transform:translateY(-10px)}}@media(max-width:560px){.row{grid-template-columns:1fr}.card{padding:16px}.big{font-size:38px}}
+</style></head><body>
+<div class="top"><b>💝 Birthday Surprise Builder</b><span class="mode" id="mode">EDIT MODE</span></div>
+<div id="editor" class="wrap"><div class="card"><div class="steps" id="dots"></div>
+<section class="step active" data-s="1"><h2>Step 1 · Basic Details</h2><div class="row"><div><label>Birthday person ka naam</label><input id="to"></div><div><label>Aapka naam</label><input id="from"></div></div><label>Birthday Message</label><textarea id="message"></textarea></section>
+<section class="step" data-s="2"><h2>Step 2 · Photos</h2><p class="sub">3 photos add karein</p><div class="photos" id="photos"></div></section>
+<section class="step" data-s="3"><h2>Step 3 · Balloon Messages</h2><div id="balloonInputs"></div></section>
+<section class="step" data-s="4"><h2>Step 4 · Special Notes</h2><div id="noteInputs"></div></section>
+<section class="step" data-s="5"><h2>Step 5 · Voice Message</h2><input id="audio" type="file" accept="audio/*"><div id="audioStatus" class="note">Voice ko Receiver Preview ke liye compact format mein ready kiya jayega (max 90 sec).</div></section>
+<section class="step" data-s="6"><h2>Step 6 · Promises</h2><div id="promiseInputs"></div></section>
+<section class="step" data-s="7"><h2>Step 7 · Final Message</h2><input id="final" value="Made with love, just for you 💗">
+<label>🐱 Cat Finale Song</label><input id="catSong" type="file" accept="audio/*"><div id="catSongStatus" class="note">Cat song Receiver Preview ke liye compact format mein ready kiya jayega (max 90 sec).</div>
+<div class="note">Ye song sirf last 🐱 Cat Finale par automatically play hoga. Receiver Preview Link ke liye short song use karein (लगभग 1 MB तक).</div>
+<div class="note">Flow: 🎂 Cake → 🏹 Bow & Arrow → 📸 Photos → 🎈 Balloons → 💌 Notes → 🎙️ Voice → 🤝 Promises → 🐱 Cat Finale + 🎵 Song</div></section>
+<div class="btns"><button class="btn alt" id="back">← Back</button><button class="btn" id="next">Next →</button></div><div id="tools" class="hide" style="margin-top:14px"><button class="btn" id="previewBtn">👁 Open Preview Mode</button>
+<div style="margin-top:14px">
+<label>Public Website URL (Netlify/GitHub Pages par publish karne ke baad)</label>
+<input id="publicUrl" type="url" placeholder="https://your-site.netlify.app/">
+</div>
+<button class="btn alt" id="shareBtn" style="margin-top:10px">🔗 Create Receiver Preview Link</button>
+<div id="share" class="note hide"></div></div>
+</div></div><div id="preview" class="preview hide"><div class="scene" id="scene"></div></div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];let step=1,photos=[],audio=null,catSong=null;
+const def={balloons:["You make my days special 💗","A little surprise for you 🎁","Stay happy always 😊","You are special ✨"],notes:["You make ordinary days feel special.","Your smile makes everything better.","Thank you for being you."],promises:["I will support you.","We will make memories.","I wish the best for you."]};
+function list(id,a){$(id).innerHTML=a.map(x=>`<div class="msg"><input value="${x}"><button class="del">×</button></div>`).join("")}
+function vals(id){return [...$(id).querySelectorAll("input")].map(x=>x.value).filter(Boolean)}
+function init(){$("#dots").innerHTML=[1,2,3,4,5,6,7].map((n,i)=>`<button class="dot ${i?'':'active'}" data-n="${n}">${n}</button>`).join("");$$(".dot").forEach(x=>x.onclick=()=>go(+x.dataset.n));$("#photos").innerHTML=[0,1,2].map(i=>`<div class="photo"><span id="p${i}">📷<br>Add Photo</span><input type="file" data-i="${i}" accept="image/*"></div>`).join("");$("#photos").onchange=e=>{let i=e.target.dataset.i;if(i===undefined)return;let f=e.target.files[0],r=new FileReader();r.onload=()=>{photos[i]=r.result;$(`#p${i}`).outerHTML=`<img id="p${i}" src="${r.result}">`};r.readAsDataURL(f)};list("#balloonInputs",def.balloons);list("#noteInputs",def.notes);list("#promiseInputs",def.promises);
+async function fileToShareAudio(file,maxSeconds,label){
+  if(!file)return null;
+  try{
+    const AC=window.AudioContext||window.webkitAudioContext;
+    if(!AC || !window.MediaRecorder || !MediaRecorder.isTypeSupported("audio/webm;codecs=opus")) throw new Error("compression unavailable");
+    const ctx=new AC();
+    const buf=await ctx.decodeAudioData(await file.arrayBuffer());
+    const duration=Math.min(buf.duration,maxSeconds);
+    const source=ctx.createBufferSource(); source.buffer=buf;
+    const dest=ctx.createMediaStreamDestination(); source.connect(dest);
+    const rec=new MediaRecorder(dest.stream,{mimeType:"audio/webm;codecs=opus",audioBitsPerSecond:48000});
+    const chunks=[];
+    rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};
+    const done=new Promise(resolve=>rec.onstop=()=>resolve(new Blob(chunks,{type:"audio/webm"})));
+    rec.start(250); source.start(0); setTimeout(()=>{try{source.stop()}catch(e){};try{rec.stop()}catch(e){}},duration*1000);
+    const blob=await done; await ctx.close();
+    return await new Promise(resolve=>{let r=new FileReader();r.onload=()=>resolve(r.result);r.readAsDataURL(blob)})
+  }catch(err){
+    return await new Promise(resolve=>{let r=new FileReader();r.onload=()=>resolve(r.result);r.readAsDataURL(file)})
+  }
+}
+$("#audio").onchange=async e=>{let f=e.target.files[0];if(!f)return;$("#audioStatus").textContent="⏳ Voice compress ho rahi hai...";audio=await fileToShareAudio(f,90,"Voice");$("#audioStatus").textContent="✅ Voice ready for Receiver Preview"};
+$("#catSong").onchange=async e=>{let f=e.target.files[0];if(!f)return;$("#catSongStatus").textContent="⏳ Cat song compress ho raha hai...";catSong=await fileToShareAudio(f,90,"Cat song");$("#catSongStatus").textContent="✅ Cat song ready for Receiver Preview"}
+}
+function go(n){step=n;$$(".step").forEach(x=>x.classList.toggle("active",+x.dataset.s===n));$$(".dot").forEach((x,i)=>x.classList.toggle("active",i+1===n));$("#back").style.visibility=n===1?"hidden":"visible";$("#next").textContent=n===7?"Finish ✓":"Next →";$("#tools").classList.toggle("hide",n!==7)}
+$("#back").onclick=()=>go(Math.max(1,step-1));$("#next").onclick=()=>step===7?go(7):go(step+1);
+function data(){return{to:$("#to").value,from:$("#from").value,message:$("#message").value,photos:photos.filter(Boolean),balloons:vals("#balloonInputs"),notes:vals("#noteInputs"),promises:vals("#promiseInputs"),audio,catSong,final:$("#final").value}}
+$("#previewBtn").onclick=()=>show(data());
+$("#shareBtn").onclick=async()=>{
+  let base=$("#publicUrl").value.trim();
+  $("#share").classList.remove("hide");
+
+  if(!base || !/^https?:\/\//i.test(base)){
+    $("#share").textContent="⚠️ Pehle website ko free hosting par publish karein aur yahan uska public https:// URL paste karein. Local file ya Chrome address se doosre person ke phone par direct preview nahi khul sakta.";
+    return;
+  }
+
+  let d=data();
+  // Text data safely travels in the URL fragment. Fragment data is opened directly
+  // in receiver Preview Mode and never shows the editor.
+  delete d.photos;
+  // Audio files are intentionally kept so Step 5 voice + Cat Finale song
+  // travel with the Receiver Preview link. Photos still need online storage.
+
+  let raw=JSON.stringify(d);
+  let encoded=btoa(unescape(encodeURIComponent(raw)));
+  if(encoded.length>1800000){
+    $("#share").textContent="⚠️ Audio ki wajah se Receiver Preview Link bahut lamba ho raha hai. Voice/song ko 90 sec se chhota rakhein ya smaller audio file choose karein.";
+    return;
+  }
+  let cleanBase=base.split("#")[0].replace(/\/$/,"");
+  let url=cleanBase+"/#preview="+encoded;
+
+  $("#share").innerHTML="✅ Receiver Preview Link ready!<br><br><input id='finalLink' readonly value='"+url.replace(/'/g,"&#39;")+"'><br><small>Is link ko WhatsApp par bhejein. Receiver Chrome/Google me kholega to seedha Preview Mode open hoga. Step 5 voice aur Cat Finale song link ke andar included hain; photos ke liye online storage/backend chahiye. Audio ko compact karke max 90 sec tak share kiya jata hai.</small>";
+
+  try{
+    await navigator.clipboard.writeText(url);
+    $("#share").firstChild.textContent="✅ Preview link copied! ";
+  }catch(e){}
+};
+function show(d){$("#editor").classList.add("hide");$("#preview").classList.remove("hide");$("#mode").textContent="PREVIEW ONLY";let s=0,sc=$("#scene"),next=()=>{s++;render()};window.nx=next;const prog=()=>`<div class="prog">${Array.from({length:8},(_,i)=>`<i class="${i<=s?'on':''}"></i>`).join("")}</div>`;
+function render(){let name=d.to||"Special Person";if(s===0){sc.className="scene";sc.innerHTML=`${prog()}<div class="cake" id="cake">🎂</div><h1 class="big">Happy Birthday<br><span style="color:#ff91b0">${name}</span></h1><p>${d.message||"A little surprise for you..."}</p><p>Tap the cake to start</p>`;$("#cake").onclick=next}
+else if(s===1){sc.className="scene";sc.innerHTML=`${prog()}<h2>A little something for you</h2><div class="bowstage" id="bs"><div class="heart">💗</div><div class="bow">🏹</div><div class="arrow">➶</div></div><button class="btn bottom" id="shoot">Release Arrow 🏹</button>`;$("#shoot").onclick=()=>{$("#bs").classList.add("shot");setTimeout(next,1000)}}
+else if(s===2){sc.className="scene light";sc.innerHTML=`${prog()}<h2>Our Memories 📸</h2><div class="gallery">${d.photos.length?d.photos.map(x=>`<img src="${x}">`).join(""):`<div class="empty">No photos added</div>`}</div><button class="btn bottom" onclick="nx()">Next</button>`}
+else if(s===3){sc.className="scene";sc.innerHTML=`${prog()}<h2>Pop the balloons 🎈</h2><div class="balloons">${d.balloons.slice(0,4).map((x,i)=>`<div class="balloon b${i+1}" data-x="${x.replace(/"/g,'&quot;')}">🎈<small>Tap</small></div>`).join("")}</div><button class="btn bottom" onclick="nx()">Next</button>`;$$(".balloon").forEach(b=>b.onclick=()=>b.innerHTML=b.dataset.x)}
+else if(s===4){sc.className="scene light";sc.innerHTML=`${prog()}<h2>Some words for you 💌</h2>${d.notes.map(x=>`<div class="letter">${x}</div>`).join("")}<button class="btn bottom" onclick="nx()">Next</button>`}
+else if(s===5){sc.className="scene";sc.innerHTML=`${prog()}<h2>Hear this 🎙️</h2><div class="letter" style="margin-top:80px">${d.audio?`<audio controls src="${d.audio}" style="width:100%"></audio>`:"No voice message added"}</div><button class="btn bottom" onclick="nx()">Next</button>`}
+else if(s===6){sc.className="scene light";sc.innerHTML=`${prog()}<h2>My Promises 🤝</h2>${d.promises.map(x=>`<div class="letter">💗 ${x}</div>`).join("")}<button class="btn bottom" onclick="nx()">Final Surprise</button>`}
+else{
+sc.className="scene";
+sc.innerHTML=`<div class="catbox"><div class="cap">A</div><div class="cat"><div class="ear l"></div><div class="ear r"></div><div class="eye el"></div><div class="eye er"></div></div><div class="flowers">🌷🌷🌷</div></div><h1 class="big">HAPPY BIRTHDAY<br><span style="color:#ff91b0">${name}</span></h1><p>${d.final||""}</p><p>From ${d.from||"Someone Special"} 💝</p>${d.catSong?`<audio id="catSongPlayer" src="${d.catSong}" autoplay controls style="width:100%;margin-top:12px"></audio>`:""}`;
+if(d.catSong){let p=$("#catSongPlayer");if(p){p.play().catch(()=>{p.controls=true})}}
+}}render()}
+init();go(1);if(location.hash.startsWith("#preview=")){
+  try{
+    const payload=location.hash.slice("#preview=".length);
+    const shared=JSON.parse(decodeURIComponent(escape(atob(payload))));
+    show(shared);
+  }catch(e){
+    console.error("Invalid preview link",e);
+  }
+}
+</script></body></html>
